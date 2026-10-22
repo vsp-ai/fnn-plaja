@@ -1,0 +1,20 @@
+*.idea
+.vscode/
+
+# Local dependencies:
+dependencies/cxxtest
+dependencies/json
+dependencies/Marabou
+dependencies/z3
+dependencies/*.zip
+
+# Build:
+external_config.cmake
+include/*_config.h
+cmake-build-debug/
+cmake-build-release/
+cmake-build-server/
+cmake-build/
+build/
+build*/
+*.log
