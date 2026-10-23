@@ -11,6 +11,7 @@
 #include "../../../option_parser/option_parser.h"
 #include "../../../parser/ast/expression/expression_utils.h"
 #include "../../../stats/stats_base.h"
+#include "../../fd_adaptions/search_engine.h"
 #include "../base/solution_checker_instance.h"
 #include "../context_z3.h"
 #include "solution_check_wrapper_z3.h"
@@ -173,6 +174,7 @@ bool Z3_IN_PLAJA::SMTSolver::handle_unknown() {
     unknownRlt = true;
 
     if (sharedStatistics) { sharedStatistics->inc_attr_unsigned(PLAJA::StatsUnsigned::Z3_QUERIES_UNDECIDED); }
+    if (SearchEngine::time_left() < 1) { throw SearchEngine::TIMEOUT; }
     dump_solver_to_file("z3_undecided_z3_query.z3");
     PLAJA_UTILS::write_to_file("z3.log", "Z3 query result: UNKNOWN " + solver.reason_unknown() + PLAJA_UTILS::lineBreakString, false);
 
@@ -262,6 +264,8 @@ bool Z3_IN_PLAJA::SMTSolver::check() {
         PLAJA_GLOBAL::timer->push_lap(sharedStatistics, PLAJA::StatsDouble::TIME_Z3);
     }
 
+    const auto left = SearchEngine::time_left();
+    solver.ctx().set("timeout", left < 1e6 ? static_cast<int>(std::max(1., left * 1000)) : 0);
     auto rlt = solver.check();
 
     if (sharedStatistics) {

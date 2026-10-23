@@ -95,6 +95,8 @@ public:
 
     [[nodiscard]] bool is_almost_expired() const; // is engine close to timeout? (for special cases in derived engines)
 
+    static double time_left(); // of the current engine, for solver calls
+
     void set_preprocessing_time(double time);
 
     void set_construction_time(double time);

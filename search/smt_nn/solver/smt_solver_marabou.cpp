@@ -17,6 +17,7 @@
 #include "../../../option_parser/enum_option_values_set.h"
 #include "../../../stats/stats_base.h"
 #include "../../factories/configuration.h"
+#include "../../fd_adaptions/search_engine.h"
 #include "../../fd_adaptions/timer.h"
 #include "../utils/options_marabou.h"
 #include "../utils/preprocessed_bounds.h"
@@ -446,6 +447,9 @@ namespace MARABOU_IN_PLAJA {
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 
     bool SMTSolver::solve(bool preprocess) {
+        auto timeout = OPTIONS_MARABOU::get_timeout();
+        const auto left = SearchEngine::time_left();
+        if (left < 1e6 and (timeout <= 0 or left < timeout)) { timeout = static_cast<int>(std::max(1., left)); }
         lastEngine = std::make_unique<ExtendedEngine>(*context);
         auto& engine = lastEngine->engine;
 
@@ -473,7 +477,7 @@ namespace MARABOU_IN_PLAJA {
 #ifndef NDEBUG
             try {
 #endif
-                engine.solve(OPTIONS_MARABOU::get_timeout());
+                engine.solve(timeout);
 #ifndef NDEBUG
             } catch (...) {
                 _query().save_query("failed.txt");
@@ -554,6 +558,7 @@ namespace MARABOU_IN_PLAJA {
 
             default: {
                 if (sharedStatistics) { sharedStatistics->inc_attr_unsigned(PLAJA::StatsUnsigned::MARABOU_QUERIES_UNDECIDED); }
+                if (SearchEngine::time_left() < 1) { throw SearchEngine::TIMEOUT; }
                 _query().save_query("undecided_marabou_query.txt");
                 return handle_unknown();
             }

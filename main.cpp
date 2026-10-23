@@ -7,6 +7,7 @@
 #include <memory>
 #include <exception>
 #include <iostream>
+#include <unistd.h>
 #include "exception/not_supported_exception.h"
 #include "exception/option_parser_exception.h"
 #include "exception/semantics_exception.h"
@@ -41,7 +42,15 @@ inline void run_engine(const SearchEngineFactory& engine_factory, const Property
 
     // set globals:
     PLAJA_GLOBAL::currentEngine = engine.get();
-    engine->search();
+    const auto max_time = PLAJA_GLOBAL::optionParser->get_int_option(PLAJA_OPTION::max_time);
+    alarm(max_time > 0 ? max_time + 10u : 0); // backstop for solver calls without time limit
+    try { engine->search(); }
+    catch (SearchEngine::SearchStatus) {
+        PLAJA_LOG("Time limit reached. Abort search.")
+        PLAJA_GLOBAL::timer->pop_all();
+        engine->set_time();
+    }
+    alarm(0);
     engine->update_statistics();
     engine->print_statistics_frame(true);
     engine->generate_csv();

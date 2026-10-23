@@ -1,5 +1,7 @@
 
 #include "search_engine.h"
+#include <limits>
+#include "../../globals.h"
 #include "../../exception/plaja_exception.h"
 #include "../../option_parser/option_parser.h"
 #include "../../option_parser/plaja_options.h"
@@ -52,7 +54,7 @@ void SearchEngine::search_internal() {
 
         if (timer->is_expired()) {
             PLAJA_LOG("Time limit reached. Abort search.")
-            status = SearchStatus::TIMEOUT;
+            set_status(SearchStatus::TIMEOUT);
             break;
         }
 
@@ -117,6 +119,12 @@ void SearchEngine::share_timers(SearchEngine* engine) {
 }
 
 bool SearchEngine::is_almost_expired() const { return timer->is_almost_expired(1); }
+
+double SearchEngine::time_left() {
+    const auto* engine = PLAJA_GLOBAL::currentEngine;
+    if (not engine or not engine->timer or engine->maxTime <= 0) { return std::numeric_limits<double>::infinity(); }
+    return engine->maxTime - (*engine->timer)();
+}
 
 void SearchEngine::set_preprocessing_time(double time) { get_search_statistics().set_attr_double(PLAJA::StatsDouble::PREPROCESSING_TIME, time); }
 

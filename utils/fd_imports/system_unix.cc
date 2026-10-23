@@ -189,7 +189,7 @@ void signal_handler(int signal_number) {
     write_reentrant_str(STDOUT_FILENO, "caught signal ");
     write_reentrant_int(STDOUT_FILENO, signal_number);
     write_reentrant_str(STDOUT_FILENO, " -- exiting\n");
-    if (signal_number == SIGXCPU) {
+    if (signal_number == SIGXCPU || signal_number == SIGALRM) {
         exit_after_receiving_signal(ExitCode::SEARCH_OUT_OF_TIME);
     }
     raise(signal_number);
@@ -258,6 +258,7 @@ void register_event_handlers() {
     sigaddset(&default_signal_action.sa_mask, SIGSEGV);
     sigaddset(&default_signal_action.sa_mask, SIGINT);
     sigaddset(&default_signal_action.sa_mask, SIGXCPU);
+    sigaddset(&default_signal_action.sa_mask, SIGALRM);
     // Reset handler to default action after completion.
     default_signal_action.sa_flags = SA_RESETHAND;
 
@@ -266,6 +267,7 @@ void register_event_handlers() {
     sigaction(SIGSEGV, &default_signal_action, 0);
     sigaction(SIGINT, &default_signal_action, 0);
     sigaction(SIGXCPU, &default_signal_action, 0);
+    sigaction(SIGALRM, &default_signal_action, 0);
 }
 
 void report_exit_code_reentrant(ExitCode exitcode) {

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
+#include "../../../fd_adaptions/search_engine.h"
 
 namespace {
 
@@ -222,10 +223,13 @@ FNN_MILP::Z3QueryToGurobi::Z3QueryToGurobi(GRBEnv& environment, const z3::expr_v
 
 FNN_MILP::Z3QueryToGurobi::Status FNN_MILP::Z3QueryToGurobi::solve() {
     try {
+        const auto left = SearchEngine::time_left();
+        if (left < GRB_INFINITY) { model.set(GRB_DoubleParam_TimeLimit, std::max(0., left)); }
         model.optimize();
         const auto status = model.get(GRB_IntAttr_Status);
         if (status == GRB_OPTIMAL) { return Status::Feasible; }
         if (status == GRB_INFEASIBLE) { return Status::Infeasible; }
+        if (status == GRB_TIME_LIMIT) { throw SearchEngine::TIMEOUT; }
         throw std::runtime_error("Gurobi returned non-conclusive status " + std::to_string(status));
     } catch (const GRBException& error) {
         throw std::runtime_error(
