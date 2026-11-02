@@ -6,12 +6,12 @@
 #ifndef PLAJA_CT_CONFIG_CONST_H
 #define PLAJA_CT_CONFIG_CONST_H
 
-#include "ct_config.h"
+#include "include/ct_config.h"
 /* Special configs. */
-#include "compiler_config_const.h"
-#include "factory_config_const.h"
-#include "marabou_config_const.h"
-#include "pa_config_const.h"
+#include "include/compiler_config_const.h"
+#include "include/factory_config_const.h"
+#include "include/marabou_config_const.h"
+#include "include/pa_config_const.h"
 
 namespace PLAJA_GLOBAL {
 

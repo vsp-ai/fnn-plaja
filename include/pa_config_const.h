@@ -10,7 +10,7 @@
 #pragma GCC diagnostic push
 #pragma ide diagnostic ignored "Simplify"
 
-#include "pa_config.h"
+#include "include/pa_config.h"
 
 /** const expr in C++ for easier usage */
 

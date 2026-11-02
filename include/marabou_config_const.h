@@ -10,7 +10,7 @@
 #pragma GCC diagnostic push
 #pragma ide diagnostic ignored "Simplify"
 
-#include "marabou_config.h"
+#include "include/marabou_config.h"
 
 namespace PLAJA_GLOBAL {
 

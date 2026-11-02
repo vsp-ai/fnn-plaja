@@ -7,7 +7,7 @@
 #ifndef PLAJA_FACTORY_CONFIG_CONST_H
 #define PLAJA_FACTORY_CONFIG_CONST_H
 
-#include "factory_config.h"
+#include "include/factory_config.h"
 
 namespace PLAJA_GLOBAL {
 

@@ -7,7 +7,7 @@
 #ifndef PLAJA_MAP_H
 #define PLAJA_MAP_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

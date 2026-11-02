@@ -1,0 +1,26 @@
+name,engine,instance,policy,options,quick
+z3-unsafe,z3,owl_det_8_8,fnn/fnn-nn-64_64-mse.json,,
+marabou-native-safe,marabou-native,blocksworld_ci_4_3,nn-32_32.nnet,,yes
+pb-flat-unsafe,pb-flat,owl_det_8_8,fnn/fnn-nn-64_64-mse.json,,
+z3-safe-blocksworld,z3,blocksworld_ca_4_3,fnn/fnn-nn-64_64-mse.json,,
+z3-safe-twl,z3,twl_icy-fixed_nop_10_8,fnn/fnn-nn-32_32-kl.json,,yes
+marabou-safe,marabou,blocksworld_ci_4_3,nn-32_32.nnet,,yes
+eval-fnn-max-length,eval,twl_icy-fixed_nop_8_8,fnn/fnn-nn-32_32-mse.json,,
+milp-safe,milp,twl_icy-fixed_nop_10_8,fnn/fnn-nn-32_32-kl.json,,yes
+pb-inc-unsafe,pb-inc,beluga_6_3_3,fnn/fnn-nn-32_32-ce.json,,yes
+eval-nn-max-length,eval,twl_icy-fixed_park_8_8,nn-32_32.nnet,,
+eval-nn-dead-end,eval,owl_icy-fixed_park_10_8,nn-32_32.nnet,,yes
+eval-fnn-failure,eval,owl_det_8_8,fnn/fnn-nn-32_32-mse.json,,yes
+eval-fnn-cycles,eval,twl_icy-fixed_park_8_8,fnn/fnn-nn-64_64-mse.json,--terminate-cycles,
+eval-expert-transport,eval,transport_8_8,Transport,,
+eval-expert-transport-feat,eval,transport_feat_8_8,Transport_Feat,,
+eval-expert-dead-end,eval,owl_icy-fixed_park_8_8,OneWayLinePark,,yes
+eval-expert-cycles,eval,twl_icy-fixed_park_8_8,TwoWayLinePark,--terminate-cycles,yes
+trace-nn-classification,eval,twl_icy-fixed_park_8_8,nn-32_32.nnet,--terminate-cycles --max-len-episode 1250 --store-traces traces.json --store-traces-mode classification,yes
+trace-nn-regression,eval,twl_icy-fixed_park_8_8,nn-32_32.nnet,--terminate-cycles --max-len-episode 1250 --store-traces traces.json --store-traces-mode regression,
+trace-fnn-classification,eval,owl_det_8_8,fnn/fnn-nn-32_32-mse.json,--terminate-cycles --max-len-episode 1250 --store-traces traces.json --store-traces-mode classification,
+trace-fnn-regression,eval,owl_det_8_8,fnn/fnn-nn-32_32-mse.json,--terminate-cycles --max-len-episode 1250 --store-traces traces.json --store-traces-mode regression,
+trace-expert-classification,eval,transport_8_8,Transport,--terminate-cycles --max-len-episode 1250 --store-traces traces.json --store-traces-mode classification,
+trace-expert-regression,eval,transport_8_8,Transport,--terminate-cycles --max-len-episode 1250 --store-traces traces.json --store-traces-mode regression,yes
+pb-inc-safe,pb-inc,blocksworld_ca_4_3,fnn/fnn-nn-64_64-mse.json,,
+pb-flat-safe,pb-flat,twl_icy-fixed_nop_10_8,fnn/fnn-nn-32_32-kl.json,,yes

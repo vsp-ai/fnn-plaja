@@ -7,7 +7,7 @@
 #ifndef PLAJA_DISJUNCTION_CONSTRAINT_BASE_H
 #define PLAJA_DISJUNCTION_CONSTRAINT_BASE_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

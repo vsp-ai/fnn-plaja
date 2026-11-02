@@ -7,7 +7,7 @@
 #ifndef PLAJA_COMPILER_CONFIG_CONST_H
 #define PLAJA_COMPILER_CONFIG_CONST_H
 
-#include "compiler_config.h"
+#include "include/compiler_config.h"
 
 /** const expr in C++ for easier usage */
 

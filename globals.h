@@ -37,7 +37,7 @@ namespace PLAJA_GLOBAL {
 
     extern const PLAJA::OptionParser* optionParser;
 
-    /* To output statistics in case of external timeout, see search/utilities.cc. */
+    /* To output statistics in case of external timeout, see core/utils/fd_imports/system_unix.cc. */
     extern SearchEngine* currentEngine;
 
     /* For some runtime checks (or debugging outputs),

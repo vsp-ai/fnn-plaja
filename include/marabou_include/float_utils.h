@@ -7,7 +7,7 @@
 #ifndef PLAJA_FLOAT_UTILS_H
 #define PLAJA_FLOAT_UTILS_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

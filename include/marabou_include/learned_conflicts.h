@@ -7,7 +7,7 @@
 #ifndef PLAJA_LEARNED_CONFLICTS_H
 #define PLAJA_LEARNED_CONFLICTS_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

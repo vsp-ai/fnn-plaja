@@ -7,7 +7,7 @@
 #ifndef PLAJA_EXCEPTIONS_H
 #define PLAJA_EXCEPTIONS_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

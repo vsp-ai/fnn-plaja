@@ -7,7 +7,7 @@
 #ifndef PLAJA_RELU_CONSTRAINT_H
 #define PLAJA_RELU_CONSTRAINT_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

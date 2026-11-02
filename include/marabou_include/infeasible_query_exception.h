@@ -7,7 +7,7 @@
 #ifndef PLAJA_INFEASIBLE_QUERY_EXCEPTION_H
 #define PLAJA_INFEASIBLE_QUERY_EXCEPTION_H
 
-#include "../factory_config_const.h"
+#include "include/factory_config_const.h"
 
 #ifdef USE_MARABOU
 

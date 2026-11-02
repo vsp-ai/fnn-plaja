@@ -90,9 +90,9 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/PlaJAFiles.cmake)
 
 
 
-# Only Release builds are supported.
-if (NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-    message(FATAL_ERROR "Only CMAKE_BUILD_TYPE=Release is supported.")
+# Only Release and Debug builds are supported.
+if (NOT CMAKE_BUILD_TYPE MATCHES "^(Release|Debug)$")
+    message(FATAL_ERROR "Only CMAKE_BUILD_TYPE=Release or Debug is supported.")
 endif ()
 
 # PlaJA
@@ -104,9 +104,9 @@ target_include_directories(${PLAJA} PRIVATE ${INCLUDES})
 if (${BUILD_TESTS} AND ${USE_ROUNDINGSAT})
     enable_testing()
     add_executable(pb_ipasir_test
-        tests/predicate_abstraction/pb_ipasir_test.cpp
-        search/predicate_abstraction/fnn/pb_constraints/pb_formula.cpp
-        search/predicate_abstraction/fnn/pb_constraints/pb_ipasir_solver.cpp)
+        tests/verification/pb_ipasir_test.cpp
+        pseudo_boolean/pb_formula.cpp
+        pseudo_boolean/pb_ipasir_solver.cpp)
     target_link_libraries(pb_ipasir_test ${ROUNDINGSAT_LIBRARY})
     target_include_directories(pb_ipasir_test PRIVATE ${INCLUDES})
     add_test(NAME pb_ipasir_test COMMAND pb_ipasir_test)
@@ -115,8 +115,8 @@ endif ()
 if (${BUILD_TESTS})
     enable_testing()
     add_executable(pb_formula_test
-        tests/predicate_abstraction/pb_formula_test.cpp
-        search/predicate_abstraction/fnn/pb_constraints/pb_formula.cpp)
+        tests/verification/pb_formula_test.cpp
+        pseudo_boolean/pb_formula.cpp)
     target_include_directories(pb_formula_test PRIVATE ${INCLUDES})
     add_test(NAME pb_formula_test COMMAND pb_formula_test)
 endif ()

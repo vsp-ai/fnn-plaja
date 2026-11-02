@@ -10,7 +10,7 @@
 #include <cassert>
 #include <cstdlib>
 #include <limits>
-#include "utils/default_constructors.h"
+#include "core/utils/default_constructors.h"
 
 //#define NDEBUG // no debugging assertions, set via cmake for release mode
 

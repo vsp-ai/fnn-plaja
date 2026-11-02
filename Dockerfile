@@ -1,6 +1,6 @@
 # Dependency image for building and running PlaJA (FNN/NN policy evaluation and verification).
 # It holds the toolchain and prebuilt dependencies only; PlaJA is compiled from this source tree.
-# Gurobi is not included: mount it at /workspace/dependencies/gurobi (see scripts/setup.sh).
+# Gurobi is not included: mount it at /workspace/dependencies/gurobi.
 #
 #   docker build -t fnn2026-deps:v1 - < Dockerfile
 

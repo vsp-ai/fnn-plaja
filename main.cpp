@@ -7,19 +7,20 @@
 #include <memory>
 #include <exception>
 #include <iostream>
-#include "exception/not_supported_exception.h"
-#include "exception/option_parser_exception.h"
-#include "exception/semantics_exception.h"
-#include "option_parser/option_parser.h"
-#include "option_parser/plaja_options.h"
-#include "parser/ast/model.h"
-#include "parser/ast/property.h"
-#include "search/factories/search_engine_factory.h"
-#include "search/factories/configuration.h"
-#include "search/fd_adaptions/timer.h"
-#include "search/fd_adaptions/search_engine.h"
-#include "search/information/property_information.h"
-#include "utils/fd_imports/system.h"
+#include <unistd.h>
+#include "core/exception/not_supported_exception.h"
+#include "core/exception/option_parser_exception.h"
+#include "core/exception/semantics_exception.h"
+#include "core/option_parser/option_parser.h"
+#include "core/option_parser/plaja_options.h"
+#include "model/ast/model.h"
+#include "model/ast/property.h"
+#include "core/search_engine_factory.h"
+#include "core/configuration.h"
+#include "core/timer.h"
+#include "core/search_engine.h"
+#include "model/property_information.h"
+#include "core/utils/fd_imports/system.h"
 #include "globals.h"
 
 
@@ -41,7 +42,15 @@ inline void run_engine(const SearchEngineFactory& engine_factory, const Property
 
     // set globals:
     PLAJA_GLOBAL::currentEngine = engine.get();
-    engine->search();
+    const auto max_time = PLAJA_GLOBAL::optionParser->get_int_option(PLAJA_OPTION::max_time);
+    alarm(max_time > 0 ? max_time + 10u : 0); // backstop for solver calls without time limit
+    try { engine->search(); }
+    catch (SearchEngine::SearchStatus) {
+        PLAJA_LOG("Time limit reached. Abort search.")
+        PLAJA_GLOBAL::timer->pop_all();
+        engine->set_time();
+    }
+    alarm(0);
     engine->update_statistics();
     engine->print_statistics_frame(true);
     engine->generate_csv();

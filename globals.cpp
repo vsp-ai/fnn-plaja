@@ -5,8 +5,8 @@
 //
 
 #include "globals.h"
-#include "utils/rng.h"
-#include "search/fd_adaptions/timer.h"
+#include "core/utils/rng.h"
+#include "core/timer.h"
 
 namespace PLAJA_GLOBAL {
 
